@@ -1,0 +1,29 @@
+aid: jumio
+url: https://raw.githubusercontent.com/api-evangelist/jumio/refs/heads/main/apis.yml
+name: Jumio
+x-type: company
+description: >-
+  Jumio provides AI-powered identity verification, KYC, AML, and biometric authentication. The Jumio Netverify API exposes ID verification, biometric checks, document verification, and watchlist screening.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - KYC
+  - Identity Verification
+  - Biometrics
+  - AML
+  - Fraud Prevention
+created: '2026-05-08'
+modified: '2026-05-08'
+specificationVersion: '0.19'
+apis: []
+common:
+  - type: Website
+    url: https://www.jumio.com/
+  - type: Plans
+    url: plans/jumio-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/jumio-rate-limits.yml
+  - type: FinOps
+    url: finops/jumio-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
