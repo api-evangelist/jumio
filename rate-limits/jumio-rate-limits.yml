@@ -7,30 +7,68 @@ created: '2026-05-08'
 modified: '2026-05-08'
 reconciled: false
 tags:
-- KYC
-- Identity Verification
-- Biometrics
-- AML
-- Fraud Prevention
-- Rate Limiting
-- Quotas
-- Throttling
-description: Placeholder rate-limit artifact for Jumio. Replace with real limits once the pipeline
-  researches the provider's rate-limit documentation.
-notes: Initial scaffold — limits have not yet been reconciled against the provider's documentation.
+  - KYC
+  - Identity Verification
+  - Biometrics
+  - AML
+  - Fraud Prevention
+  - Rate Limiting
+  - Throttling
+description: >-
+  Jumio does not publish per-second numeric rate limits for the KYX Platform APIs in
+  public documentation. The platform applies per-customer throttling that scales with
+  the contracted verification volume, returns standard HTTP 4xx/5xx responses on
+  abuse, and mandates verification of callback authenticity via mutual TLS or signed
+  payload. Bulk operations (Retrieval, Screening monitoring batches) are processed
+  asynchronously. Reconciliation against published numeric ceilings pending - confirm
+  with Jumio Solutions Engineering for high-volume integrations.
 sources:
-- https://www.jumio.com/
+  - https://documentation.jumio.ai/
+  - https://www.jumio.com/products/
 responseCodes:
   throttled: 429
+  unauthorized: 401
+  serverError: 5xx
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  - name: Per-Customer Throttle
+    scope: customer
+    metric: requests
+    limit: contracted
+    timeFrame: minute
+    notes: >-
+      Numeric ceiling not published; throttling scales with contracted verification
+      volume. Sustained excessive request volume returns 429.
+  - name: Mobile / Web SDK Capture
+    scope: device
+    metric: capture_session
+    limit: device-bound
+    notes: >-
+      SDK capture sessions are bound to the token returned from ID Verification
+      initiation; tokens are short-lived and single-flow.
+  - name: Bulk Screening Monitoring
+    scope: account
+    metric: monitored_identities
+    limit: contracted
+    notes: >-
+      Ongoing-monitoring batch refresh runs periodically per the contract; per-batch
+      throughput is server-managed.
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  - name: 429 Throttling
+    description: >-
+      Jumio returns 429 Too Many Requests on excessive throughput. Clients should
+      back off before retrying.
+  - name: Backoff Strategy
+    description: >-
+      Implement exponential backoff with jitter on 429 / 5xx responses. Cache final
+      decisions locally to avoid repeated Retrieval API calls.
+  - name: Callback Authentication
+    description: >-
+      Verify the source of inbound callbacks via mutual TLS or the signed payload
+      before treating the decision as authoritative.
+  - name: Token Lifecycle
+    description: >-
+      ID Verification initiation tokens are short-lived and single-flow; do not cache
+      them across user sessions.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

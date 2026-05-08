@@ -3,7 +3,7 @@ url: https://raw.githubusercontent.com/api-evangelist/jumio/refs/heads/main/apis
 name: Jumio
 x-type: company
 description: >-
-  Jumio provides AI-powered identity verification, KYC, AML, and biometric authentication. The Jumio Netverify API exposes ID verification, biometric checks, document verification, and watchlist screening.
+  Jumio operates the KYX Platform, an end-to-end AI-driven identity verification, fraud prevention, and compliance suite. Backend APIs orchestrate ID verification, document verification, biometric authentication, AML and watchlist screening, risk signals, and reusable identity (selfie.DONE). Web client and native iOS / Android / React Native / Flutter / Cordova SDKs front the platform; backend Java and .NET SDKs wrap the REST API for server-side flows.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - KYC
@@ -11,13 +11,224 @@ tags:
   - Biometrics
   - AML
   - Fraud Prevention
+  - KYX
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: jumio:id-verification
+    name: Jumio ID Verification API
+    description: >-
+      Initiates and retrieves ID verification transactions. Issues a token used to start
+      the SDK or hosted web flow, accepts callback events when the verification is
+      complete, and exposes endpoints to retrieve verification results, extracted
+      document data, similarity scores, and decision metadata.
+    humanURL: https://documentation.jumio.ai/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - ID Verification
+      - KYC
+      - Onboarding
+    properties:
+      - type: Documentation
+        url: https://documentation.jumio.ai/
+  - aid: jumio:document-verification
+    name: Jumio Document Verification API
+    description: >-
+      Validates supporting documents beyond government ID - utility bills, bank
+      statements, leases, and other proof-of-address artifacts. Returns extracted
+      structured data and an authenticity decision.
+    humanURL: https://documentation.jumio.ai/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - Document Verification
+      - Proof of Address
+    properties:
+      - type: Documentation
+        url: https://documentation.jumio.ai/
+  - aid: jumio:authentication
+    name: Jumio Authentication API
+    description: >-
+      Selfie-driven biometric reverification of returning customers. Compares a fresh
+      selfie against the previously enrolled face graph for the same user and returns
+      a match decision, used for high-risk events such as device change, large
+      transactions, or password reset.
+    humanURL: https://documentation.jumio.ai/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - Biometrics
+      - Liveness
+      - Authentication
+    properties:
+      - type: Documentation
+        url: https://documentation.jumio.ai/
+  - aid: jumio:selfie-done
+    name: Jumio selfie.DONE API
+    description: >-
+      Frictionless reverification flow that recognizes returning trusted users with a
+      single selfie - no need to rescan ID. Backed by the Jumio Identity Graph and
+      reusable identity records.
+    humanURL: https://www.jumio.com/products/selfie-done/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - Reusable Identity
+      - Biometrics
+      - Selfie
+    properties:
+      - type: Documentation
+        url: https://www.jumio.com/products/selfie-done/
+  - aid: jumio:screening
+    name: Jumio Screening API (AML / Watchlist)
+    description: >-
+      AI-powered AML, sanctions, PEP, and adverse-media screening. Supports one-off
+      screening calls and ongoing monitoring of enrolled identities. Returns hits,
+      categories, and risk-score metadata to feed compliance review.
+    humanURL: https://www.jumio.com/products/aml/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - AML
+      - Sanctions
+      - PEP
+      - Watchlist
+    properties:
+      - type: Documentation
+        url: https://www.jumio.com/products/aml/
+  - aid: jumio:risk-signals
+    name: Jumio Risk Signals API
+    description: >-
+      Returns enriched risk-signal data on a user (device, behavioural, network, and
+      identity-graph signals) for layered risk scoring without requiring a full
+      verification round-trip.
+    humanURL: https://www.jumio.com/products/risk-signals/
+    baseURL: https://account.amer-1.jumio.ai
+    tags:
+      - Risk
+      - Fraud Prevention
+      - Signals
+    properties:
+      - type: Documentation
+        url: https://www.jumio.com/products/risk-signals/
+  - aid: jumio:retrieval
+    name: Jumio Retrieval API
+    description: >-
+      Retrieves stored transaction details, scanned documents, similarity scores, and
+      decision audit history for an existing transaction. Used by compliance teams for
+      regulatory recordkeeping and dispute review.
+    humanURL: https://documentation.jumio.ai/
+    baseURL: https://retrieval.amer-1.jumio.ai
+    tags:
+      - Retrieval
+      - Compliance
+      - Records
+    properties:
+      - type: Documentation
+        url: https://documentation.jumio.ai/
+  - aid: jumio:callback
+    name: Jumio Callback / Webhook
+    description: >-
+      Server-to-server callback delivering verification results. Jumio POSTs the final
+      decision and metadata to a customer-configured URL once a transaction reaches a
+      terminal state. Customers verify the source via mutual TLS or signed payload.
+    humanURL: https://documentation.jumio.ai/
+    baseURL: customer-configured
+    tags:
+      - Webhooks
+      - Callbacks
+      - Events
+    properties:
+      - type: Documentation
+        url: https://documentation.jumio.ai/
+  - aid: jumio:web-sdk
+    name: Jumio Web SDK
+    description: >-
+      Browser-based client SDK that hosts the verification UI, captures documents and
+      selfies, and streams them to Jumio. Initialised with a token from the ID
+      Verification API and configured per-customer for branding and locale.
+    humanURL: https://github.com/Jumio/web-sdk
+    baseURL: https://github.com/Jumio/web-sdk
+    tags:
+      - Web SDK
+      - JavaScript
+      - Client
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/web-sdk
+  - aid: jumio:mobile-sdk-ios
+    name: Jumio Mobile SDK (iOS)
+    description: >-
+      Native iOS SDK (Swift) that captures ID, supporting documents, and selfie
+      biometrics, with on-device pre-checks before streaming to Jumio.
+    humanURL: https://github.com/Jumio/mobile-sdk-ios
+    baseURL: https://github.com/Jumio/mobile-sdk-ios
+    tags:
+      - SDK
+      - iOS
+      - Mobile
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/mobile-sdk-ios
+  - aid: jumio:mobile-sdk-android
+    name: Jumio Mobile SDK (Android)
+    description: >-
+      Native Android SDK (Java/Kotlin) that captures ID, supporting documents, and
+      selfie biometrics, with on-device pre-checks before streaming to Jumio.
+    humanURL: https://github.com/Jumio/mobile-sdk-android
+    baseURL: https://github.com/Jumio/mobile-sdk-android
+    tags:
+      - SDK
+      - Android
+      - Mobile
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/mobile-sdk-android
+  - aid: jumio:mobile-react
+    name: Jumio React Native Plugin
+    description: >-
+      React Native plugin wrapping the iOS and Android SDKs for cross-platform mobile
+      apps.
+    humanURL: https://github.com/Jumio/mobile-react
+    baseURL: https://github.com/Jumio/mobile-react
+    tags:
+      - SDK
+      - React Native
+      - Mobile
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/mobile-react
+  - aid: jumio:mobile-flutter
+    name: Jumio Flutter Plugin
+    description: >-
+      Flutter plugin wrapping the iOS and Android SDKs for Flutter applications.
+      MIT-licensed.
+    humanURL: https://github.com/Jumio/mobile-flutter
+    baseURL: https://github.com/Jumio/mobile-flutter
+    tags:
+      - SDK
+      - Flutter
+      - Mobile
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/mobile-flutter
+  - aid: jumio:mobile-cordova
+    name: Jumio Cordova Plugin
+    description: >-
+      Apache Cordova plugin wrapping the iOS and Android SDKs for hybrid Cordova apps.
+    humanURL: https://github.com/Jumio/mobile-cordova
+    baseURL: https://github.com/Jumio/mobile-cordova
+    tags:
+      - SDK
+      - Cordova
+      - Mobile
+    properties:
+      - type: Repository
+        url: https://github.com/Jumio/mobile-cordova
 common:
   - type: Website
     url: https://www.jumio.com/
+  - type: Documentation
+    url: https://documentation.jumio.ai/
+  - type: GitHub
+    url: https://github.com/Jumio
   - type: Plans
     url: plans/jumio-plans-pricing.yml
   - type: RateLimits
