@@ -235,6 +235,14 @@ common:
     url: rate-limits/jumio-rate-limits.yml
   - type: FinOps
     url: finops/jumio-finops.yml
+  - type: Integrations
+    url: https://www.jumio.com/integrations/
+integrations:
+  - name: AWS
+  - name: Azurian
+  - name: Microsoft
+  - name: Oracle
+  - name: Sift
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
