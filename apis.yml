@@ -223,6 +223,8 @@ apis:
       - type: Repository
         url: https://github.com/Jumio/mobile-cordova
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/jumio-corporation
   - type: Website
     url: https://www.jumio.com/
   - type: Documentation
