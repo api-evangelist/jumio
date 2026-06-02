@@ -13,7 +13,7 @@ tags:
   - Fraud Prevention
   - KYX
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - aid: jumio:id-verification
@@ -137,7 +137,9 @@ apis:
       - Events
     properties:
       - type: Documentation
-        url: https://documentation.jumio.ai/
+        url: https://documentation.jumio.ai/docs/developer-resources/callback
+      - type: AsyncAPI
+        url: asyncapi/jumio-callback-asyncapi.yml
   - aid: jumio:web-sdk
     name: Jumio Web SDK
     description: >-

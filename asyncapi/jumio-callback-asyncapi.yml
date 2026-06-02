@@ -1,0 +1,274 @@
+asyncapi: '2.6.0'
+id: 'urn:com:jumio:kyx:callback'
+info:
+  title: Jumio KYX Workflow Callback
+  version: '1.0.0'
+  description: |
+    Server-to-server callback delivered by the Jumio KYX Platform once a
+    workflow execution reaches a terminal or notable state. Jumio POSTs a
+    JSON document to a customer-configured callback URL (set either globally
+    in the Jumio Application Settings or per-transaction via the
+    `callbackUrl` parameter on workflow initiation).
+
+    This AsyncAPI document models the documented surface of the callback as
+    described in the Jumio developer documentation
+    (https://documentation.jumio.ai/docs/developer-resources/callback).
+    Fields that are not part of the documented payload (for example a full
+    `decision` / `capabilities` block, signed-payload headers, or
+    legacy Netverify result codes such as `APPROVED_VERIFIED`,
+    `DENIED_FRAUD`, `DENIED_UNSUPPORTED_ID_TYPE`, `ERROR_NOT_READABLE_ID`,
+    or `NO_ID_UPLOADED`) are intentionally NOT modeled here because they
+    are not documented as part of the KYX workflow callback payload.
+    Retrieve the full workflow result via the Retrieval API
+    (https://retrieval.amer-1.jumio.ai) using the `workflowExecution.href`
+    returned in the callback.
+  contact:
+    name: Jumio Support
+    url: https://support.jumio.com
+  license:
+    name: Proprietary
+    url: https://www.jumio.com/legal-information/
+
+defaultContentType: application/json
+
+servers:
+  customer-us:
+    url: '{callbackUrl}'
+    protocol: https
+    description: |
+      Customer-hosted HTTPS endpoint that receives callbacks originating
+      from Jumio's AMER (US) data center (`callback.amer-1.jumio.ai`).
+      Customers should allowlist the AMER callback IP set published in
+      the Jumio documentation.
+    variables:
+      callbackUrl:
+        description: >-
+          Fully qualified HTTPS URL of the customer endpoint that receives
+          the callback POST. Configured globally in the Jumio Customer
+          Portal Application Settings or overridden per-transaction via
+          the `callbackUrl` field on workflow initiation.
+        default: https://example.com/jumio/callback
+  customer-eu:
+    url: '{callbackUrl}'
+    protocol: https
+    description: |
+      Customer-hosted HTTPS endpoint that receives callbacks originating
+      from Jumio's EMEA data center (`callback.emea-1.jumio.ai`).
+    variables:
+      callbackUrl:
+        description: Customer-hosted HTTPS endpoint URL.
+        default: https://example.eu/jumio/callback
+  customer-apac:
+    url: '{callbackUrl}'
+    protocol: https
+    description: |
+      Customer-hosted HTTPS endpoint that receives callbacks originating
+      from Jumio's APAC (Singapore) data center
+      (`callback.apac-1.jumio.ai`).
+    variables:
+      callbackUrl:
+        description: Customer-hosted HTTPS endpoint URL.
+        default: https://example.sg/jumio/callback
+
+channels:
+  workflow-execution-callback:
+    description: |
+      The configured customer endpoint that receives a single HTTP POST
+      from Jumio whenever a workflow execution transitions to a state
+      Jumio reports out-of-band. The same channel carries every documented
+      `workflowExecution.status` value; the receiver dispatches on the
+      `status` field of the payload.
+
+      Per the Jumio documentation, the receiver should verify that the
+      source of the request is one of the published Jumio callback
+      hostnames or IP addresses for the relevant data center region
+      (AMER / EMEA / APAC).
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: receiveWorkflowExecutionCallback
+      summary: Receive a Jumio workflow-execution callback.
+      description: >-
+        Customer's webhook endpoint receives a JSON callback from Jumio
+        when a workflow execution reaches one of the documented statuses.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/WorkflowExecutionProcessed'
+          - $ref: '#/components/messages/WorkflowExecutionAcquisitionStarted'
+          - $ref: '#/components/messages/WorkflowExecutionAcquired'
+          - $ref: '#/components/messages/WorkflowExecutionSessionExpired'
+          - $ref: '#/components/messages/WorkflowExecutionTokenExpired'
+
+components:
+  messages:
+    WorkflowExecutionProcessed:
+      name: workflowExecutionProcessed
+      title: Workflow Execution Processed
+      summary: >-
+        Workflow execution has been fully processed by Jumio. The final
+        decision and per-capability results can be retrieved from
+        `workflowExecution.href` via the Retrieval API.
+      contentType: application/json
+      bindings:
+        http:
+          headers:
+            type: object
+            properties:
+              Content-Type:
+                type: string
+                const: application/json
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/WorkflowCallback'
+      examples:
+        - name: processed
+          summary: Workflow completed and ready for retrieval
+          payload:
+            callbackSentAt: '2026-05-30T12:00:00.000Z'
+            userReference: customer-user-1234
+            workflowExecution:
+              id: 22222222-3333-4444-5555-666666666666
+              href: https://retrieval.amer-1.jumio.ai/api/v1/accounts/11111111-2222-3333-4444-555555555555/workflow-executions/22222222-3333-4444-5555-666666666666
+              definitionKey: '10001'
+              status: PROCESSED
+            account:
+              id: 11111111-2222-3333-4444-555555555555
+              href: https://retrieval.amer-1.jumio.ai/api/v1/accounts/11111111-2222-3333-4444-555555555555
+
+    WorkflowExecutionAcquisitionStarted:
+      name: workflowExecutionAcquisitionStarted
+      title: Workflow Execution Acquisition Started
+      summary: >-
+        End-user has begun the document / selfie acquisition flow inside
+        the Jumio-hosted UI or SDK.
+      contentType: application/json
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/WorkflowCallback'
+
+    WorkflowExecutionAcquired:
+      name: workflowExecutionAcquired
+      title: Workflow Execution Acquired
+      summary: >-
+        All required artifacts have been acquired from the end user.
+        Jumio is now processing them; a `PROCESSED` callback will follow.
+      contentType: application/json
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/WorkflowCallback'
+
+    WorkflowExecutionSessionExpired:
+      name: workflowExecutionSessionExpired
+      title: Workflow Execution Session Expired
+      summary: >-
+        The end-user session expired before the workflow could be
+        finalized. The workflow will not be executed further.
+      contentType: application/json
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/WorkflowCallback'
+
+    WorkflowExecutionTokenExpired:
+      name: workflowExecutionTokenExpired
+      title: Workflow Execution Token Expired
+      summary: >-
+        The bearer token issued at account creation / update expired
+        before the workflow could be finalized.
+      contentType: application/json
+      bindings:
+        http:
+          bindingVersion: '0.3.0'
+      payload:
+        $ref: '#/components/schemas/WorkflowCallback'
+
+  schemas:
+    WorkflowCallback:
+      type: object
+      description: >-
+        Documented root payload of a Jumio KYX workflow callback. POSTed
+        as `application/json` to the customer-configured callback URL.
+      required:
+        - callbackSentAt
+        - workflowExecution
+        - account
+      properties:
+        callbackSentAt:
+          type: string
+          format: date-time
+          description: >-
+            UTC timestamp the callback was emitted, formatted
+            `YYYY-MM-DDThh:mm:ss.SSSZ`.
+          example: '2026-05-30T12:00:00.000Z'
+        userReference:
+          type: string
+          description: >-
+            Customer-supplied identifier passed in at workflow initiation.
+            Echoed back unchanged so the customer can correlate the
+            callback with their internal user record.
+          example: customer-user-1234
+        workflowExecution:
+          $ref: '#/components/schemas/WorkflowExecution'
+        account:
+          $ref: '#/components/schemas/Account'
+
+    WorkflowExecution:
+      type: object
+      description: Workflow-execution metadata included in every callback.
+      required:
+        - id
+        - href
+        - definitionKey
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID identifying this workflow execution.
+        href:
+          type: string
+          format: uri
+          description: >-
+            Retrieval API URL used to fetch the full workflow result,
+            including decision, capabilities, and extracted data.
+        definitionKey:
+          type: string
+          description: >-
+            Identifier of the workflow definition that was executed
+            (for example `10001`). Configured per-account in the Jumio
+            Customer Portal.
+        status:
+          type: string
+          description: >-
+            Terminal or notable state of the workflow execution at the
+            time the callback was sent.
+          enum:
+            - PROCESSED
+            - ACQUISITION_STARTED
+            - ACQUIRED
+            - SESSION_EXPIRED
+            - TOKEN_EXPIRED
+
+    Account:
+      type: object
+      description: Jumio account reference for the workflow execution.
+      required:
+        - id
+        - href
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID of the Jumio account that owns the workflow execution.
+        href:
+          type: string
+          format: uri
+          description: Retrieval API URL for fetching the account record.
