@@ -4,7 +4,7 @@ name: Jumio
 kind: company
 description: >-
   Jumio operates the KYX Platform, an end-to-end AI-driven identity verification, fraud prevention, and compliance suite. Backend APIs orchestrate ID verification, document verification, biometric authentication, AML and watchlist screening, risk signals, and reusable identity (selfie.DONE). Web client and native iOS / Android / React Native / Flutter / Cordova SDKs front the platform; backend Java and .NET SDKs wrap the REST API for server-side flows.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - KYC
   - Identity Verification
