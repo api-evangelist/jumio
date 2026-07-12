@@ -225,6 +225,10 @@ apis:
       - type: Repository
         url: https://github.com/Jumio/mobile-cordova
 common:
+  - type: TrustCenter
+    url: security/jumio-trust-center.yml
+  - type: DomainSecurity
+    url: security/jumio-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/jumio-corporation
   - type: Website
@@ -241,6 +245,8 @@ common:
     url: finops/jumio-finops.yml
   - type: Integrations
     url: https://www.jumio.com/integrations/
+  - url: https://www.jumio.com/feed/
+    type: Blog
 integrations:
   - name: AWS
   - name: Azurian
