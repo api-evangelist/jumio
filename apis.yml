@@ -144,6 +144,10 @@ apis:
     humanURL: https://documentation.jumio.ai/
     baseURL: customer-configured
     tags:
+      - Webhook
+      - Callbacks
+      - Event
+    tags_raw:
       - Webhooks
       - Callbacks
       - Events
@@ -161,6 +165,10 @@ apis:
     humanURL: https://github.com/Jumio/web-sdk
     baseURL: https://github.com/Jumio/web-sdk
     tags:
+      - Web SDK
+      - JavaScript
+      - Clients
+    tags_raw:
       - Web SDK
       - JavaScript
       - Client
