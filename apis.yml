@@ -5,16 +5,23 @@ kind: company
 description: >-
   Jumio operates the KYX Platform, an end-to-end AI-driven identity verification, fraud prevention, and compliance suite. Backend APIs orchestrate ID verification, document verification, biometric authentication, AML and watchlist screening, risk signals, and reusable identity (selfie.DONE). Web client and native iOS / Android / React Native / Flutter / Cordova SDKs front the platform; backend Java and .NET SDKs wrap the REST API for server-side flows.
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - jumio/mobile-cordova
+    - jumio/mobile-flutter
+    - jumio/mobile-react
+    - jumio/mobile-sdk-android
+    - jumio/mobile-sdk-ios
   open_source: unknown
   commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: enterprise
@@ -29,6 +36,9 @@ accessModel:
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/jumio.png
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
   - KYC
   - Identity Verification
@@ -126,6 +136,10 @@ apis:
     humanURL: https://www.jumio.com/products/risk-signals/
     baseURL: https://account.amer-1.jumio.ai
     tags:
+      - Risk Management
+      - Fraud Prevention
+      - Signals
+    tags_raw:
       - Risk
       - Fraud Prevention
       - Signals
