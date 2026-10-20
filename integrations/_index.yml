@@ -40,3 +40,72 @@
       lapsed: false
   status: not-a-workflow
   arazzo: null
+- slug: jumio-nist-frte-fate-face-recognition-technology-evaluation
+  label: NIST FRTE/FATE (face recognition technology evaluation)
+  partner_name: NIST FRTE/FATE (face recognition technology evaluation)
+  category: biometric algorithm evaluation
+  type: register
+  channel: standard-directory
+  evidence: https://pages.nist.gov/frvt/html/frvt11.html
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: 'NIST FRTE / FATE (pages.nist.gov/frvt: 1:1, 1:N, age estimation, paperless travel, twins)'
+    standard: NIST FRTE/FATE
+    spec_file: null
+    role: nist-frte-participant
+    registered_name: Jumio
+    registered_country: US
+    register_id: https://pages.nist.gov/frvt/html/frvt11.html
+    matched_domain: jumio.com
+    matched_by: domain
+    identity: wikidata Q16988433 'Jumio' P856 http://www.jumio.com
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+    tracks:
+    - fate-age-estimation
+    signals:
+      best_1to1_rank: null
+      top10_1to1: false
+    signal_note: 'participation only: NIST evaluates, it does not certify. A top-tier rank is a signal recorded
+      for context, never certified_products, and algorithm / track counts are never counted'
+    detected_by: sweep-biometrics-testing.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: jumio-ibeta-iso-iec-30107-3-presentation-attack-detection
+  label: iBeta (ISO/IEC 30107-3 presentation attack detection)
+  partner_name: iBeta (ISO/IEC 30107-3 presentation attack detection)
+  category: biometric conformance (PAD)
+  type: register
+  channel: standard-directory
+  evidence: https://www.ibeta.com/iso-30107-3-presentation-attack-detection-confirmation-letters/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: iBeta ISO/IEC 30107-3 PAD confirmation letters (ibeta.com, NIST NVLAP-accredited lab)
+    standard: ISO/IEC 30107-3 (iBeta PAD)
+    spec_file: null
+    role: ibeta-pad-confirmed
+    registered_name: Jumio Corp.
+    register_id: https://www.ibeta.com/wp-content/uploads/2025/10/250911-Jumio-PAD-Level-2-Confirmation-Letter.pdf
+    matched_domain: jumio.com
+    matched_by: domain
+    identity: wikidata Q16988433 'Jumio' P856 http://www.jumio.com
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+    certified_products:
+    - product: ISO/IEC 30107-3 PAD (face)
+      modality: face
+      partner_tier: Level 2
+      lapsed: false
+      latest_letter: '2025-09-11'
+      products_tested:
+      - 'Jumio PAD SDK (Jumio Liveness SDK)
+
+        iOS application'
+    signal_note: certified_products = ONE entry per PAD product type (modality), highest level confirmed in partner_tier;
+      letters and versions are never counted. iBeta letters carry no expiry, so lapsed is false and the latest letter
+      date is recorded
+    detected_by: sweep-biometrics-testing.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
