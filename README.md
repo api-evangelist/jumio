@@ -1,4 +1,4 @@
-# Jumio (jumio)
+# Jumio
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,133 @@
 
 Jumio operates the KYX Platform, an end-to-end AI-driven identity verification, fraud prevention, and compliance suite. Backend APIs orchestrate ID verification, document verification, biometric authentication, AML and watchlist screening, risk signals, and reusable identity (selfie.DONE). Web client and native iOS / Android / React Native / Flutter / Cordova SDKs front the platform; backend Java and .NET SDKs wrap the REST API for server-side flows.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/jumio/refs/heads/main/apis.yml)
+**Areas:** KYC · Identity Verification · Biometrics · AML · Fraud Prevention · KYX
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=jumio-api-evangelist&utm_content=repo)
+## Jumio on APIs.io
 
-## Type
+Everything profiled for Jumio is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/jumio/](https://apis.io/providers/jumio/)** — or go straight to one of the APIs or properties below.
 
-- **x-type:** company
+### APIs (14)
 
-## Tags
+- [Jumio ID Verification API](https://apis.io/apis/jumio/id-verification/) — Initiates and retrieves ID verification transactions. Issues a token used to start the SDK or hosted web flow, accepts callback events when the verification…
+- [Jumio Document Verification API](https://apis.io/apis/jumio/document-verification/) — Validates supporting documents beyond government ID - utility bills, bank statements, leases, and other proof-of-address artifacts. Returns extracted…
+- [Jumio Authentication API](https://apis.io/apis/jumio/authentication/) — Selfie-driven biometric reverification of returning customers. Compares a fresh selfie against the previously enrolled face graph for the same user and…
+- [Jumio selfie.DONE API](https://apis.io/apis/jumio/selfie-done/) — Frictionless reverification flow that recognizes returning trusted users with a single selfie - no need to rescan ID. Backed by the Jumio Identity Graph and…
+- [Jumio Screening API (AML / Watchlist)](https://apis.io/apis/jumio/screening/) — AI-powered AML, sanctions, PEP, and adverse-media screening. Supports one-off screening calls and ongoing monitoring of enrolled identities. Returns hits,…
+- [Jumio Risk Signals API](https://apis.io/apis/jumio/risk-signals/) — Returns enriched risk-signal data on a user (device, behavioural, network, and identity-graph signals) for layered risk scoring without requiring a full…
+- [Jumio Retrieval API](https://apis.io/apis/jumio/retrieval/) — Retrieves stored transaction details, scanned documents, similarity scores, and decision audit history for an existing transaction. Used by compliance teams…
+- [Jumio Callback / Webhook](https://apis.io/apis/jumio/callback/) — Server-to-server callback delivering verification results. Jumio POSTs the final decision and metadata to a customer-configured URL once a transaction…
+- [Jumio Web SDK](https://apis.io/apis/jumio/web-sdk/) — Browser-based client SDK that hosts the verification UI, captures documents and selfies, and streams them to Jumio. Initialised with a token from the ID…
+- [Jumio Mobile SDK (iOS)](https://apis.io/apis/jumio/mobile-sdk-ios/) — Native iOS SDK (Swift) that captures ID, supporting documents, and selfie biometrics, with on-device pre-checks before streaming to Jumio.
+- [Jumio Mobile SDK (Android)](https://apis.io/apis/jumio/mobile-sdk-android/) — Native Android SDK (Java/Kotlin) that captures ID, supporting documents, and selfie biometrics, with on-device pre-checks before streaming to Jumio.
+- [Jumio React Native Plugin](https://apis.io/apis/jumio/mobile-react/) — React Native plugin wrapping the iOS and Android SDKs for cross-platform mobile apps.
+- [Jumio Flutter Plugin](https://apis.io/apis/jumio/mobile-flutter/) — Flutter plugin wrapping the iOS and Android SDKs for Flutter applications. MIT-licensed.
+- [Jumio Cordova Plugin](https://apis.io/apis/jumio/mobile-cordova/) — Apache Cordova plugin wrapping the iOS and Android SDKs for hybrid Cordova apps.
 
-- KYC, Identity Verification, Biometrics, AML, Fraud Prevention, KYX
+### Published properties
 
-## Timestamps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-08
+#### AsyncAPI (1)
 
-## APIs
+Event-driven and webhook contracts.
 
-| API | Description |
-|---|---|
-| Jumio ID Verification API | Initiates and retrieves ID verification transactions; issues SDK tokens, accepts callbacks. |
-| Jumio Document Verification API | Validates supporting documents (utility bills, statements, leases). |
-| Jumio Authentication API | Selfie-driven biometric reverification of returning customers. |
-| Jumio selfie.DONE API | Frictionless single-selfie reverification for trusted returning users. |
-| Jumio Screening API | AI-powered AML, sanctions, PEP, and adverse-media screening with ongoing monitoring. |
-| Jumio Risk Signals API | Enriched risk-signal lookups against the Identity Graph, device, and behavioural data. |
-| Jumio Retrieval API | Retrieves stored transactions, scanned documents, and decision audit history. |
-| Jumio Callback / Webhook | Server-to-server final-decision delivery to a customer-configured URL. |
-| Jumio Web SDK | Browser-based capture UI hosted on the customer's site. |
-| Jumio Mobile SDK (iOS) | Native iOS SDK in Swift. |
-| Jumio Mobile SDK (Android) | Native Android SDK in Java/Kotlin. |
-| Jumio React Native Plugin | Cross-platform mobile wrapper. |
-| Jumio Flutter Plugin | Flutter mobile wrapper. |
-| Jumio Cordova Plugin | Apache Cordova hybrid mobile wrapper. |
+- [Jumio KYX Workflow Callback](https://apis.io/asyncapis/jumio/jumio-callback-asyncapi/)
 
-## Common Properties
+#### Event channels (1)
+
+Individual events and webhooks the provider emits.
+
+- [workflow-execution-callback](https://apis.io/channels/jumio/workflow-execution-callback/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Jumio — asyncapi rules](https://apis.io/rules/jumio/jumio-asyncapi-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Jumio Domain Security](https://apis.io/security/jumio/jumio-domain-security/)
+- [Jumio Trust Center](https://apis.io/security/jumio/jumio-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Jumio Plans Pricing](https://apis.io/plans/jumio/jumio-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Jumio Rate Limits](https://apis.io/rate-limits/jumio/jumio-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Jumio Finops](https://apis.io/finops/jumio/jumio-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.jumio.com/)
 - [Documentation](https://documentation.jumio.ai/)
-- [GitHub](https://github.com/Jumio)
-- [Plans](plans/jumio-plans-pricing.yml) - API Commons Plans 0.1
-- [RateLimits](rate-limits/jumio-rate-limits.yml) - API Commons Rate Limits 0.1
-- [FinOps](finops/jumio-finops.yml) - FOCUS-aligned FinOps Framework 1.0
+- [Blog](https://www.jumio.com/feed/)
 
-## Plans
+## API Evangelist rating
 
-Jumio does not publish self-serve plan pricing. Commercial terms are negotiated per customer:
+**Kin Score 24.5** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-- **KYX Platform (Custom)** - Per-verification consumption with volume discounts; add-on lines for AML / PEP / sanctions / adverse-media screening, ongoing monitoring, document verification, biometric authentication, risk signals, retrieval, and extended retention; minimum monthly commit.
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 40.6 |
+| Contract governance | 13.6 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 13.2 |
 
-The SDKs are free to use; cost is incurred only when a transaction reaches the backend KYX Platform.
+**Agent readiness 14.7** — agent-aware
 
-## Rate Limits
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-- Per-customer dynamic throttling that scales with the contracted verification volume; numeric ceiling not published.
-- 429 Too Many Requests on excessive throughput; verify callbacks via mTLS or signed payload.
-- ID Verification initiation tokens are short-lived and single-flow.
+**Regulatory alignment 10.4** — AI & Biometrics
 
-## Maintainers
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/jumio/](https://apis.io/providers/jumio/).
 
-**FN:** Kin Lane
+## How this profile is made
 
-**Email:** kin@apievangelist.com
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Jumio: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/jumio/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
